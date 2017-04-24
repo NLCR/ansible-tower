@@ -1,0 +1,7 @@
+---
+ansible_tower_version: 3.1.1
+ansible_admin_password: vagrant
+ansible_database_name: ansible-tower
+ansible_database_user: vagrant
+ansible_database_pass: vagrant
+ansible_rabbitmq_pass: vagrant

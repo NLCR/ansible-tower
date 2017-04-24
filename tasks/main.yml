@@ -1,0 +1,33 @@
+---
+- name: Install EPEL repoository
+  yum:
+    name: epel-release
+    state: present
+
+- name: Latest Ansible is installed from EPEL repository
+  yum:
+    name: ansible
+    state: latest
+  tags: update
+
+- name: Ansible Tower {{ ansible_tower_version }} setup is extracted to /opt
+  unarchive:
+    src: http://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-{{ ansible_tower_version }}.tar.gz
+    dest: /opt/
+    remote_src: yes
+  tags: update
+
+- name: Ansible Tower configuration is deployed
+  template:
+    src: inventory
+    dest: /opt/ansible-tower-setup-{{ ansible_tower_version }}/inventory
+  tags: update
+
+- name: Install Ansible Tower {{ ansible_tower_version }} using setup script
+  command: /opt/ansible-tower-setup-{{ ansible_tower_version }}/setup.sh
+
+- name: Licence Ansible Tower with Basic Trial for 10 nodes and unlimited time
+  copy:
+    src: license_trial_basic.txt
+    dest: /etc/tower/license
+  tags: license

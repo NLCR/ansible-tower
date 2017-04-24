@@ -1,0 +1,23 @@
+[tower]
+localhost ansible_connection=local
+
+[database]
+
+[all:vars]
+admin_password='{{ ansible_admin_password }}'
+
+pg_host=''
+pg_port=''
+
+pg_database='{{ ansible_database_name }}'
+pg_username='{{ ansible_database_user }}'
+pg_password='{{ ansible_database_pass }}'
+
+rabbitmq_port=5672
+rabbitmq_vhost=tower
+rabbitmq_username=tower
+rabbitmq_password='{{ ansible_rabbitmq_pass }}'
+rabbitmq_cookie=cookiemonster
+
+# Needs to be true for fqdns and ip addresses
+rabbitmq_use_long_name=false
